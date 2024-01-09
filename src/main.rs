@@ -1,12 +1,12 @@
-use axum::{response::Html, routing::get, Router};
+use axum::Router;
+use tower_http::services::{ServeDir, ServeFile};
 
-#[shuttle_runtime::main]
-async fn main() -> shuttle_axum::ShuttleAxum {
-    let routers = Router::new().route("/", get(root));
+#[tokio::main]
+async fn main() {
+    let service =
+        ServeDir::new("assets/root").not_found_service(ServeFile::new("assets/not_found.html"));
+    let routers = Router::new().nest_service("/", service);
 
-    Ok(routers.into())
-}
-
-async fn root() -> Html<&'static str> {
-    include_str!("index.html").into()
+    let listener = tokio::net::TcpListener::bind("0.0.0.0:8000").await.unwrap();
+    axum::serve(listener, routers).await.unwrap();
 }
