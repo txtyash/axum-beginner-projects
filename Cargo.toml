@@ -9,7 +9,7 @@ edition = "2021"
 anyhow = "1.0.79"
 axum = "0.7.3"
 httpc-test = { version = "0.1.8", features = ["color-output"] }
-shuttle-axum = "0.35.2"
-shuttle-runtime = "0.35.2"
+shuttle-axum = "0.36.0"
+shuttle-runtime = "0.36.0"
 tokio = { version = "1.35.1", features = ["full"] }
-tower-http = { version="0.5.0", features=["fs"] }
+tower-http = { version = "0.5.0", features = ["fs"] }
