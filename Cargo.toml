@@ -9,7 +9,9 @@ edition = "2021"
 anyhow = "1.0.79"
 axum = "0.7.3"
 httpc-test = { version = "0.1.8", features = ["color-output"] }
+lazy_static = "1.4.0"
 shuttle-axum = "0.36.0"
 shuttle-runtime = "0.36.0"
+tera = "1.19.1"
 tokio = { version = "1.35.1", features = ["full"] }
 tower-http = { version = "0.5.0", features = ["fs"] }
