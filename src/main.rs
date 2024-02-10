@@ -1,11 +1,15 @@
 use axum::Router;
 use tower_http::services::{ServeDir, ServeFile};
 
-#[shuttle_runtime::main]
-async fn main() -> shuttle_axum::ShuttleAxum {
+#[tokio::main]
+async fn main() {
     let service =
         ServeDir::new("assets").not_found_service(ServeFile::new("assets/not_found.html"));
     let routers = Router::new().nest_service("/", service);
 
-    Ok(routers.into())
+    // run our app with hyper, listening globally on port 3000
+    let listener = tokio::net::TcpListener::bind("127.0.0.1:8000")
+        .await
+        .unwrap();
+    axum::serve(listener, routers).await.unwrap();
 }
